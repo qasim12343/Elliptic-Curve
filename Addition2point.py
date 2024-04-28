@@ -11,14 +11,13 @@ def isOnCurve(x, y, a, b, p):
 
 
 def R(xp, yp, xq, yq, a, b, p):
-    if yp == -yq or (yp == yq and yp == 0):
-        return (0, 0)
-    if xp == xq and yp == yq:
+
+    if xp == xq:
         s = ((3*xp**2+a)*invert(2*yp, p)) % p
-        print("a")
+
     else:
         s = ((yp-yq)*invert(xp-xq, p)) % p
-    print(s)
+
     xr = int((s**2 - xp - xq) % p)
     yr = int(-(yp - s*(xp-xr)) % p)
 

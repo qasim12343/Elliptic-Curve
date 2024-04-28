@@ -24,6 +24,18 @@ def R(xp, yp, xq, yq, a, b, p):
     return (xr, yr)
 
 
+def exchange(p, a, b, xg, yg, x, y):
+    x1 = xg
+    y1 = yg
+    times = x*y
+    # while times/2 > 0:
+    #     x1, y1 = R(x1, y1, x1, y1, a, b, p)
+    for i in range(x):
+        x1, y1 = R(x1, y1, xg, yg, a, b, p)
+
+    return (x1, y1)
+
+
 def main():
 
     p = int(input())
@@ -31,6 +43,8 @@ def main():
     b = int(input())
     xg = int(input())
     yg = int(input())
+    x = int(input())
+    y = int(input())
 
     if not isPrime(p):
         print("p is not prime")
@@ -39,7 +53,7 @@ def main():
         print("P is not on the curve")
         return
 
-    print(R(xp, yp, xq, yq, a, b, p))
+    print(exchange(p, a, b, xg, yg, x, y))
 
 
 if __name__ == "__main__":
