@@ -19,7 +19,7 @@ def R(xp, yp, xq, yq, a, b, p):
         s = ((yp-yq)*invert(xp-xq, p)) % p
 
     xr = int((s**2 - xp - xq) % p)
-    yr = int(-(yp - s*(xp-xr)) % p)
+    yr = int((s*(xp-xr) - yp) % p)
 
     return (xr, yr)
 
@@ -30,10 +30,16 @@ def exchange(p, a, b, xg, yg, x, y):
     times = x*y
     # while times/2 > 0:
     #     x1, y1 = R(x1, y1, x1, y1, a, b, p)
-    for i in range(x):
+    for i in range(x-1):
         x1, y1 = R(x1, y1, xg, yg, a, b, p)
 
-    return (x1, y1)
+    x2 = x1
+    y2 = y1
+
+    for j in range(y-1):
+        x2, y2 = R(x2, y2, x1, y1, a, b, p)
+
+    return (x2, y2)
 
 
 def main():
@@ -53,7 +59,8 @@ def main():
         print("P is not on the curve")
         return
 
-    print(exchange(p, a, b, xg, yg, x, y))
+    xr, yr = exchange(p, a, b, xg, yg, x, y)
+    print(str(xr)+str(yr))
 
 
 if __name__ == "__main__":
